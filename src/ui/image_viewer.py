@@ -21,7 +21,7 @@ class ImageViewer(QLabel):
         """)
         
         self.setText("No image loaded")
-        self.setFont(QFont("Times New Romans", 12))
+        self.setFont(QFont("Times New Roman", 12))
         
         self.setMinimumSize(400, 400) 
         self.current_image = None

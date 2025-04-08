@@ -13,9 +13,9 @@ from models.predict import predict_changes
 class BuildingChangeDetectionApp(QMainWindow):
     def __init__(self):
         super().__init__()
-        self.app_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-        self.output_dir = os.path.join(self.app_dir, "results")
-        self.default_model_path = os.path.join(self.app_dir, "models", "model.pth")
+        self.app_dir = os.path.dirname(os.path.dirname(sys.executable))
+        self.output_dir = os.path.join(self.app_dir, "result")
+        self.default_model_path = os.path.join(self.app_dir, "model", "model.pth")
         
         os.makedirs(self.output_dir, exist_ok=True)
         
@@ -106,7 +106,7 @@ class BuildingChangeDetectionApp(QMainWindow):
         self.setWindowTitle('多层次注意力残差UNet++模型建筑物变化检测系统')
         self.setGeometry(100, 100, 1200, 800)
         
-        icon_dir = os.path.join(self.app_dir, "ui", "icons")
+        icon_dir = os.path.join(self.app_dir, "icon")
         
         central_widget = QWidget()
         main_layout = QHBoxLayout()
@@ -300,7 +300,6 @@ class BuildingChangeDetectionApp(QMainWindow):
             self.statusBar.showMessage(f"Error loading {image_type} image")
 
     def get_model_path(self):
-        """Get the selected model path based on user selection"""
         if self.model_type.currentIndex() == 0:
             return self.default_model_path
         else:
@@ -356,7 +355,6 @@ class BuildingChangeDetectionApp(QMainWindow):
             self.statusBar.showMessage("Error during analysis")
 
     def save_results(self):
-        """Save the results to a user-selected location"""
         if not os.path.exists(os.path.join(self.output_dir, "result_image.png")):
             QMessageBox.warning(self, "Warning", "No results to save. Please run analysis first.")
             return

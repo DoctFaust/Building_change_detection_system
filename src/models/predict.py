@@ -1,4 +1,5 @@
 import os
+import sys
 import torch
 import numpy as np
 from PIL import Image
@@ -15,12 +16,12 @@ def predict_changes(imgA_path, imgB_path, model_path=None, output_path=None):
     std = [0.229, 0.224, 0.225]
     
     if model_path is None:
-        current_dir = os.path.dirname(os.path.abspath(__file__))
-        model_path = os.path.join(current_dir, "model.pth")
+        current_dir = os.path.dirname(os.path.dirname(sys.executable))
+        model_path = os.path.join(current_dir, "model", "model.pth")
     
     if output_path is None:
-        project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-        output_dir = os.path.join(project_root, "results")
+        project_root = os.path.dirname(os.path.dirname(sys.executable))
+        output_dir = os.path.join(project_root, "result")
         os.makedirs(output_dir, exist_ok=True)
         output_path = os.path.join(output_dir, "result_image.png")
     
