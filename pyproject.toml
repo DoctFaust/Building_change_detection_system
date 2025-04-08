@@ -1,0 +1,12 @@
+[project]
+name = "building-change-detection"
+version = "0.1.0"
+dependencies = [
+    "PyQt5>=5.15.7",
+    "torch>=1.12.1",
+    "numpy>=1.22.4"
+]
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
