@@ -4,8 +4,6 @@ from PyQt5.QtWidgets import QApplication
 from ui.main_window import BuildingChangeDetectionApp
 from PyQt5.QtGui import QIcon
 
-# sys.path.append(os.path.dirname())
-
 def main():
     app = QApplication(sys.argv)
     
