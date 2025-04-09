@@ -8,7 +8,7 @@
 
 项目的文件结构如下：
 
-###### [ building_change_detection ]
+##### [ building_change_detection ]
 - icon               // 应用需要使用到的图标
 - model              // 默认模型参数文件存放的位置
    - model.pth       // 默认选择的UNet++模型参数文件

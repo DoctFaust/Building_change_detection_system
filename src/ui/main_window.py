@@ -28,7 +28,7 @@ class BuildingChangeDetectionApp(QMainWindow):
         
         self.setStyleSheet("""
             QMainWindow {
-                background-color: #f5f5f7;
+                background-color: #fefeea;
             }
             QGroupBox {
                 font-weight: bold;
@@ -97,7 +97,7 @@ class BuildingChangeDetectionApp(QMainWindow):
                 background-color: #4b7bec;
             }
             QStatusBar {
-                background-color: #ffffff;
+                background-color: #4b7bec;
                 color: #333333;
             }
         """)
@@ -118,61 +118,61 @@ class BuildingChangeDetectionApp(QMainWindow):
         left_panel.setLayout(left_layout)
         left_panel.setFixedWidth(300)
         
-        image_group = QGroupBox("Image Selection")
+        image_group = QGroupBox("图像选择")
         image_layout = QVBoxLayout()
         image_group.setLayout(image_layout)
         
         before_layout = QHBoxLayout()
-        self.before_btn = QPushButton('Upload Before Image')
+        self.before_btn = QPushButton('变化前图像')
         try:
             self.before_btn.setIcon(QIcon(os.path.join(icon_dir, "upload.png")))
         except:
             pass
         self.before_btn.clicked.connect(lambda: self.upload_image('before'))
-        self.before_btn.setToolTip("Select an image showing the area before changes")
+        self.before_btn.setToolTip("请选择区域建筑物变化前的图像进行上传")
         before_layout.addWidget(self.before_btn)
         
-        self.before_path_label = QLabel("No file selected")
+        self.before_path_label = QLabel("未选择")
         self.before_path_label.setWordWrap(True)
         before_layout.addWidget(self.before_path_label)
         image_layout.addLayout(before_layout)
         
         after_layout = QHBoxLayout()
-        self.after_btn = QPushButton('Upload After Image')
+        self.after_btn = QPushButton('变化后图像')
         try:
             self.after_btn.setIcon(QIcon(os.path.join(icon_dir, "upload.png")))
         except:
             pass
         self.after_btn.clicked.connect(lambda: self.upload_image('after'))
-        self.after_btn.setToolTip("Select an image showing the area after changes")
+        self.after_btn.setToolTip("请选择同一区域变化后的图像进行上传")
         after_layout.addWidget(self.after_btn)
         
-        self.after_path_label = QLabel("No file selected")
+        self.after_path_label = QLabel("未选择")
         self.after_path_label.setWordWrap(True)
         after_layout.addWidget(self.after_path_label)
         image_layout.addLayout(after_layout)
         
         left_layout.addWidget(image_group)
         
-        model_group = QGroupBox("Model Selection")
+        model_group = QGroupBox("模型选择")
         model_layout = QVBoxLayout()
         model_group.setLayout(model_layout)
         
         model_type_layout = QFormLayout()
         self.model_type = QComboBox()
-        self.model_type.addItem("Default Model", self.default_model_path)
-        self.model_type.addItem("Custom Model", "")
+        self.model_type.addItem("默认模型", self.default_model_path)
+        self.model_type.addItem("自定义模型", "")
         self.model_type.currentIndexChanged.connect(self.on_model_type_changed)
-        model_type_layout.addRow("Model Type:", self.model_type)
+        model_type_layout.addRow("检测模型:", self.model_type)
         model_layout.addLayout(model_type_layout)
         
         model_path_layout = QHBoxLayout()
         self.model_path_edit = QLineEdit()
         self.model_path_edit.setEnabled(False)
-        self.model_path_edit.setPlaceholderText("Path to model weights (.pth)")
+        self.model_path_edit.setPlaceholderText("模型权重文件路径 (.pth)")
         model_path_layout.addWidget(self.model_path_edit)
         
-        self.model_browse_btn = QPushButton("Browse")
+        self.model_browse_btn = QPushButton("浏览...")
         try:
             self.model_browse_btn.setIcon(QIcon(os.path.join(icon_dir, "folder.png")))
         except:
@@ -184,11 +184,11 @@ class BuildingChangeDetectionApp(QMainWindow):
         model_layout.addLayout(model_path_layout)
         left_layout.addWidget(model_group)
         
-        analysis_group = QGroupBox("Analysis")
+        analysis_group = QGroupBox("变化检测")
         analysis_layout = QVBoxLayout()
         analysis_group.setLayout(analysis_layout)
         
-        self.analyze_btn = QPushButton('Analyze Changes')
+        self.analyze_btn = QPushButton('开始分析')
         try:
             self.analyze_btn.setIcon(QIcon(os.path.join(icon_dir, "analyze.png")))
         except:
@@ -198,7 +198,7 @@ class BuildingChangeDetectionApp(QMainWindow):
         analysis_layout.addWidget(self.analyze_btn)
         
         progress_layout = QVBoxLayout()
-        progress_layout.addWidget(QLabel("Analysis Progress:"))
+        progress_layout.addWidget(QLabel("检测进度:"))
         self.progress_bar = QProgressBar()
         progress_layout.addWidget(self.progress_bar)
         analysis_layout.addLayout(progress_layout)
@@ -207,11 +207,11 @@ class BuildingChangeDetectionApp(QMainWindow):
         
         left_layout.addStretch()
         
-        results_group = QGroupBox("Results")
+        results_group = QGroupBox("检测结果")
         results_layout = QVBoxLayout()
         results_group.setLayout(results_layout)
         
-        self.save_results_btn = QPushButton("Save Results")
+        self.save_results_btn = QPushButton("保存变化图像")
         try:
             self.save_results_btn.setIcon(QIcon(os.path.join(icon_dir, "save.png")))
         except:
@@ -229,13 +229,13 @@ class BuildingChangeDetectionApp(QMainWindow):
         self.image_viewers = QTabWidget()
         
         self.before_viewer = ImageViewer()
-        self.image_viewers.addTab(self.before_viewer, 'Before Image')
+        self.image_viewers.addTab(self.before_viewer, '变化前图像')
         
         self.after_viewer = ImageViewer()
-        self.image_viewers.addTab(self.after_viewer, 'After Image')
+        self.image_viewers.addTab(self.after_viewer, '变化后图像')
         
         self.result_viewer = ImageViewer()
-        self.image_viewers.addTab(self.result_viewer, 'Change Detection Result')
+        self.image_viewers.addTab(self.result_viewer, '变化二值图')
         
         right_layout.addWidget(self.image_viewers)
         
@@ -244,7 +244,7 @@ class BuildingChangeDetectionApp(QMainWindow):
         
         self.statusBar = QStatusBar()
         self.setStatusBar(self.statusBar)
-        self.statusBar.showMessage("Ready")
+        self.statusBar.showMessage("准备就绪")
 
     def on_model_type_changed(self, index):
         if index == 0: 
@@ -258,9 +258,9 @@ class BuildingChangeDetectionApp(QMainWindow):
     def browse_model(self):
         file_path, _ = QFileDialog.getOpenFileName(
             self, 
-            'Select Model Weights', 
+            'Select Model Parameter File', 
             '', 
-            'PyTorch Model Files (*.pth)'
+            'PyTorch 模型参数文件 (*.pth)'
         )
         
         if file_path:
@@ -305,24 +305,24 @@ class BuildingChangeDetectionApp(QMainWindow):
         else:
             custom_path = self.model_path_edit.text().strip()
             if not custom_path:
-                QMessageBox.warning(self, "Warning", "Please select a custom model file.")
+                QMessageBox.warning(self, "Warning", "请选择一个本地模型参数文件.")
                 return None
             if not os.path.exists(custom_path):
-                QMessageBox.warning(self, "Warning", "The selected model file does not exist.")
+                QMessageBox.warning(self, "Warning", "选择的模型文件不存在")
                 return None
             return custom_path
 
     def analyze_changes(self):
         try:
             if not all(self.image_paths.values()):
-                QMessageBox.warning(self, 'Error', 'Please upload both before and after images.')
+                QMessageBox.warning(self, 'Error', '请上传变化前后图像')
                 return
             
             model_path = self.get_model_path()
             if not model_path:
                 return
                 
-            self.statusBar.showMessage("Analyzing changes...")
+            self.statusBar.showMessage("检测中...")
             self.progress_bar.setValue(0)
             self.progress_bar.setMaximum(0) 
             
@@ -340,7 +340,7 @@ class BuildingChangeDetectionApp(QMainWindow):
                 self.image_viewers.setCurrentIndex(2)
                 self.save_results_btn.setEnabled(True)
                 
-                self.statusBar.showMessage("Analysis completed successfully!")
+                self.statusBar.showMessage("分析完毕！")
                 
             except Exception as e:
                 QMessageBox.critical(self, 'Prediction Error', str(e))
@@ -356,7 +356,7 @@ class BuildingChangeDetectionApp(QMainWindow):
 
     def save_results(self):
         if not os.path.exists(os.path.join(self.output_dir, "result_image.png")):
-            QMessageBox.warning(self, "Warning", "No results to save. Please run analysis first.")
+            QMessageBox.warning(self, "Warning", "无检测结果，请先进行检测。")
             return
             
         save_path, _ = QFileDialog.getSaveFileName(
@@ -373,7 +373,7 @@ class BuildingChangeDetectionApp(QMainWindow):
                     os.path.join(self.output_dir, "result_image.png"),
                     save_path
                 )
-                self.statusBar.showMessage(f"Results saved to {save_path}")
+                self.statusBar.showMessage(f"结果已保存至 {save_path}")
             except Exception as e:
                 QMessageBox.critical(self, "Error", f"Failed to save results: {str(e)}")
-                self.statusBar.showMessage("Error saving results")
+                self.statusBar.showMessage("保存出错")
