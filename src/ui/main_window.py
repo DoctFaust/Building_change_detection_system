@@ -103,7 +103,7 @@ class BuildingChangeDetectionApp(QMainWindow):
         """)
 
     def initUI(self):
-        self.setWindowTitle('多层次注意力残差UNet++模型建筑物变化检测系统')
+        self.setWindowTitle('通道注意力UNet++模型建筑物变化检测系统')
         self.setGeometry(100, 100, 1200, 800)
         
         icon_dir = os.path.join(self.app_dir, "icon")
