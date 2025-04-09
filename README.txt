@@ -24,18 +24,42 @@
 
 1. 获取项目文件
 
-在 CMD/Powershell/Bash 等 Shell 中输入：
+在 Powershell/Bash/CMD 等 Shell 中输入：
 git clone https://github.com/DoctFaust/Building_change_detection_system.git {指定的文件夹路径}
 
 或使用网盘下载，网盘链接为：
-`abcdefg`
+https://pan.baidu.com/s/1XBup7v6yHH2rK-ZOinPf0g 提取码: 1053
 
-2. 执行部署脚本
+2. 虚拟环境创建和激活
 
-在 CMD/Powershell/Bash 等 Shell 中导航到第一步中指定的存储项目文件的文件夹，例如：
+在 Powershell/Bash/CMD 等 Shell 中导航到第一步中指定的存储项目文件的文件夹，例如：
 cd C:/Users/admin/Building_change_detection_system
 
-然后执行dist文件夹下的部署脚本：
-./dist/deploy_app.ps1
+然后在此目录下进行虚拟环境的创建和激活。这里以我们开发过程中使用工具 uv 的操作步骤为例，它能够方便地进行Python项目包管理和虚拟环境管理。
 
-执行完毕后，在dist文件夹下可以找到main.exe，点击打开即可使用。
+**⚠️⚠️⚠️注意： 本项目使用的pip和依赖包版本均与Python 3.9配套，因此用户需要安装Python 3.9版本。如果在Windows系统下进行构建，还需要手动配置Python 3.9的系统环境变量，然后进行下一步操作。**
+
+首先使用 pip 下载 uv ：
+pip install uv
+
+然后使用 uv 创建虚拟环境，注意在后面指定使用的 Python 解释器版本，避免使用错误版本：
+uv venv venv1 --python 3.9 (venv1可替换为其它名称)
+
+最后激活虚拟环境 venv1 ：
+venv1/Scripts/activate
+
+3. 安装依赖和构建工具
+
+在激活的虚拟环境下，使用 pip 根据项目的 requirements.txt 安装依赖：
+uv pip install -r requirements.txt
+
+安装完成后再继续安装构建工具 build 和 pyinstaller：
+uv pip install pyinstaller
+
+4. 构建二进制文件
+
+使用 pyinstaller 构建 main.exe：
+
+pyinstaller --onefile --windowed src/main.py
+
+构建完成的 main.exe 可执行文件位于项目根目录的 dist 文件夹下，用户点击打开即可使用。
