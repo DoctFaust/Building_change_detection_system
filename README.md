@@ -8,17 +8,17 @@
 
 项目的文件结构如下：
 
-building_change_detection
-├─icon               // 应用需要使用到的图标
-├─model              // 默认模型参数文件存放的位置
-│  └─model.pth       // 默认选择的UNet++模型参数文件
-├─src                // 源代码存放位置
-│  ├─models          // 负责 **模型预测** 的源代码
-│  └─ui              // 负责控制 **GUI界面样式** 和 **界面与模型交互** 的源代码
-└─test_image         // 测试图片存放位置
-   ├─after           // 变化前图像
-   ├─before          // 变化后图像
-   └─label           // 标签图像，用于评价检测效果
+###### [ building_change_detection ]
+- icon               // 应用需要使用到的图标
+- model              // 默认模型参数文件存放的位置
+   - model.pth       // 默认选择的UNet++模型参数文件
+- src                // 源代码存放位置
+   - models          // 负责 **模型预测** 的源代码
+   - ui              // 负责控制 **GUI界面样式** 和 **界面与模型交互** 的源代码
+- test_image         // 测试图片存放位置
+   - after           // 变化前图像
+   - before          // 变化后图像
+   - label           // 标签图像，用于评价检测效果
 
 ___
 
