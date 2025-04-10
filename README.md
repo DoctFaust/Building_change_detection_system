@@ -32,7 +32,7 @@ _注：用户可以直接使用打包好的 `main.exe` 来使用本系统。不�
 
 在 `Powershell/Bash/CMD` 等 `Shell` 中输入：
 
-`git clone https://github.com/DoctFaust/Building_change_detection_system.git {指定的文件夹路径}`
+`git clone https://github.com/DoctFaust/building_change_detection.git {指定的文件夹路径}`
 
 或使用网盘下载，网盘链接为：
 
@@ -42,7 +42,7 @@ _注：用户可以直接使用打包好的 `main.exe` 来使用本系统。不�
 
 在 `Powershell/Bash/CMD` 等 `Shell` 中导航到第一步中指定的存储项目文件的文件夹，例如：
 
-`cd C:/Users/admin/Building_change_detection_system`
+`cd C:/Users/admin/building_change_detection`
 
 然后在此目录下进行虚拟环境的创建和激活。这里以我们开发过程中使用工具 `uv` 的操作步骤为例，它能够方便地进行Python项目包管理和虚拟环境管理。
 
